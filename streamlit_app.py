@@ -4,6 +4,10 @@ import snowflake.connector
 
 import pandas
 
+import requests
+
+from urllib.error import URLError
+
 streamlit.title('My parents New Healthy Diner')
 
 streamlit.header('Breakfast menu')
@@ -27,7 +31,7 @@ streamlit.dataframe(fruits_to_show)
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 #New section to display Fruityvice API response
-import requests
+
 
 streamlit.header("Fruityvice Fruit Advice!")
 
@@ -41,6 +45,9 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # write your own comment - what does this do?
 streamlit.dataframe(fruityvice_normalized)
 
+#Don't execute anything after this until we troubleshoot
+#streamlit.stop()
+
 #snowflake connector in action
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
@@ -52,5 +59,6 @@ streamlit.dataframe(my_data_rows)
 add_my_fruit = streamlit.text_input('What fruit would you like to add?','Jackfruit')
 streamlit.write('The user entered ', add_my_fruit)
 
+my_cur.execute("Insert into fruit_load_list values ('from streamlit')")
 
 
