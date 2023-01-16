@@ -51,7 +51,7 @@ except URLError as e:
 # write your own comment - what does this do?
 
 #Don't execute anything after this until we troubleshoot
-streamlit.stop()
+#streamlit.stop()
 
 #snowflake connector in action
 
